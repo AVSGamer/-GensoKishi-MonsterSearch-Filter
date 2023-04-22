@@ -248,7 +248,7 @@ IF(G9="Map Name Desc",QUERY(INDIRECT("M9"),INDIRECT("N9") & " ORDER BY Col1 DESC
 
 [ CURRENT Complete Functions Search and Filter Code - Duplicate] TESTED WORKING - Needs Further Shortening, these are Named Ranges
 
-=IF(L9="Don't Care",QUERY({OP; TG; APW; APE; PC; APN; ER; CP; ABR; VR; AS; EUC; YSC; MA; APS; BI; FSL; KD; RT; KC; CH; DJ; DN; DH; ZFE; ZFW; ZA; FWN; FW; CE; CC; CT; ET},INDIRECT("U9")),
+=IFNA(IF(L9="Don't Care",QUERY({OP; TG; APW; APE; PC; APN; ER; CP; ABR; VR; AS; EUC; YSC; MA; APS; BI; FSL; KD; RT; KC; CH; DJ; DN; DH; ZFE; ZFW; ZA; FWN; FW; CE; CC; CT; ET},INDIRECT("U9")),
 IF(L9="Monster Name Asc",QUERY({OP; TG; APW; APE; PC; APN; ER; CP; ABR; VR; AS; EUC; YSC; MA; APS; BI; FSL; KD; RT; KC; CH; DJ; DN; DH; ZFE; ZFW; ZA; FWN; FW; CE; CC; CT; ET},INDIRECT("U9") & " ORDER BY Col2 ASC"),
 IF(L9="Monster Name Desc",QUERY({OP; TG; APW; APE; PC; APN; ER; CP; ABR; VR; AS; EUC; YSC; MA; APS; BI; FSL; KD; RT; KC; CH; DJ; DN; DH; ZFE; ZFW; ZA; FWN; FW; CE; CC; CT; ET},INDIRECT("U9") & " ORDER BY Col2 DESC"),
 IF(L9="Level Asc",QUERY({OP; TG; APW; APE; PC; APN; ER; CP; ABR; VR; AS; EUC; YSC; MA; APS; BI; FSL; KD; RT; KC; CH; DJ; DN; DH; ZFE; ZFW; ZA; FWN; FW; CE; CC; CT; ET},INDIRECT("U9") & " ORDER BY Col3 ASC"),
@@ -266,9 +266,10 @@ IF(L9="Map Name Desc",QUERY({OP; TG; APW; APE; PC; APN; ER; CP; ABR; VR; AS; EUC
 )
 )
 )
+,"No Matches Found!")
 
 [ CURRENT Code in U9]
-="SELECT * WHERE (Col2 CONTAINS '"&A3&"') AND " & 
+="SELECT * WHERE (LOWER(Col2) CONTAINS '"&lower(A3)&"') AND " & 
 IF(ISBLANK(B3),"(Col3 >= 0 AND ","(Col3 >= "&B3&" AND ") & 
 IF(ISBLANK(C3),"Col3 <= 999999999999) AND ","Col3 <= "&C3&") AND ") & 
 IF(ISBLANK(E3),"(Col4 >= 0 AND ","(Col4 >= "&E3&" AND ") &
